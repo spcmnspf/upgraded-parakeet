@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Unique Code Generator</title>
+</head>
+
+  <body>
+
+    <h1>Unique Code Generator</h1>
+
+      <label for="email">Enter Email:</label><br>
+        <input type="email" id="email" name="email"><br><br>
+
+          <button onclick="generateCode()">Generate Code</button>
+
+            <p id="code"></p>
+
+				<script>
+                  function generateCode() {
+                        const email = document.getElementById("email").value;
+                              let code = 0;
+
+                                    // Simple hashing function (replace with a more robust one)
+                                          for (let i = 0; i < email.length; i++) {
+                                                  code += email.charCodeAt(i);
+                                                        }
+
+                                                              // Limit code to 16 bits
+                                                                    code = code & 0xFFFF; // Bitwise AND with 0xFFFF to get 16 bits
+
+                                                                          // Convert code to hexadecimal string
+                                                                                const hexCode = code.toString(16).toUpperCase();
+
+                                                                                      // Pad with leading zeros if necessary
+                                                                                            const paddedCode = hexCode.padStart(4, '0');
+
+                                                                                                  document.getElementById("code").textContent = "Unique Code: " + paddedCode;
+                                                                                                      }
+                </script>
+
+                                                                                                        
+	</body>
+    </html>                                                                                                       
