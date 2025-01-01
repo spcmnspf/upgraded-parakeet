@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Unique Code Generator</title>
-</head>
-
+  <title>Unique Code Generator</title>
+  </head>
   <body>
 
     <h1>Unique Code Generator</h1>
@@ -15,7 +14,7 @@
 
             <p id="code"></p>
 
-				<script>
+              <script>
                   function generateCode() {
                         const email = document.getElementById("email").value;
                               let code = 0;
@@ -29,6 +28,8 @@
                                                                     code = code & 0xFFFF; // Bitwise AND with 0xFFFF to get 16 bits
 
                                                                           // Convert code to hexadecimal string
+                                                                              // Add more characters to make the code longer and unique
+                                                                              code = (code * 31 + email.length) & 0xFFFFFFFF; // Multiply by a prime number and add email length, limit to 32 bits
                                                                                 const hexCode = code.toString(16).toUpperCase();
 
                                                                                       // Pad with leading zeros if necessary
@@ -36,8 +37,9 @@
 
                                                                                                   document.getElementById("code").textContent = "Unique Code: " + paddedCode;
                                                                                                       }
-                </script>
+                                                                                                        </script>
+
+                                                                                                        </body>
+                                                                                                        </html>
 
                                                                                                         
-	</body>
-    </html>                                                                                                       
