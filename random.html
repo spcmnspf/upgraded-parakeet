@@ -146,6 +146,25 @@
     background: rgba(0,255,242,0.2);
     transform: translateX(10px);
 }
+.description-panel img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border: 2px solid #00fff2;
+    margin-bottom: 1rem;
+    filter: hue-rotate(-30deg) contrast(1.2);
+    transition: all 0.3s ease;
+}
+
+.description-panel img:hover {
+    filter: hue-rotate(0deg) contrast(1.4);
+    transform: scale(1.02);
+}
+
+.description-text {
+    margin-top: 1rem;
+    line-height: 1.6;
+}
 </style>
 </head>
 <body>
@@ -174,16 +193,66 @@
     <script>
 
 const descriptions = {
-      'NeoTech Syndicate': 'Pioneers in neural implant technology, specializing in memory enhancement and consciousness backup solutions.',
-      'Quantum Nexus Corp': 'Leaders in quantum computing and AI fusion, developing next-gen processing architectures.',
-      'CyberDyne Systems': 'Military-grade cybernetic enhancements and autonomous defense systems manufacturer.',
-      'Chrome Matrix Ltd': 'Virtual reality interfaces and neural network security solutions for the corporate elite.',
-      'Binary Dawn Industries': 'Synthetic organ manufacturing and biotech augmentation research facility.',
-      'Neon Pulse Technologies': 'Holographic advertising and urban atmosphere control systems developer.',
-      'SynthCore Dynamics': 'Artificial consciousness research and digital immortality solutions provider.',
-      'Void Protocol Inc': 'Deep space communication and quantum entanglement transportation systems.',
-      'DataStorm Solutions': 'Information warfare and corporate espionage prevention specialists.',
-      'Neural Grid Systems': 'Brain-machine interface pioneers and neural network infrastructure providers.'
+      'NeoTech Syndicate': {
+        image: 'https://source.unsplash.com/random/800x600/?cyberpunk,tech',
+        text: 'Pioneers in neural implant technology, specializing in memory enhancement and consciousness backup solutions.'
+      },
+      
+      
+      'Quantum Nexus Corp': {
+        image: 'https://source.unsplash.com/random/800x600/?cyberpunk,tech',
+        text: 'Leaders in quantum computing and AI fusion, developing next-gen processing architectures.'
+      },         
+      
+      
+      'CyberDyne Systems': {
+        image: 'https://source.unsplash.com/random/800x600/?cyberpunk,tech',
+        text: 'Military-grade cybernetic enhancements and autonomous defense systems manufacturer.'
+      },
+      
+      
+      'Chrome Matrix Ltd': {
+        image: 'https://source.unsplash.com/random/800x600/?cyberpunk,tech',
+        text: 'Virtual reality interfaces and neural network security solutions for the corporate elite.'
+      }, 
+      
+      
+      'Binary Dawn Industries': {
+        image: 'https://source.unsplash.com/random/800x600/?cyberpunk,tech',
+        text: 'Synthetic organ manufacturing and biotech augmentation research facility.'
+      },
+      
+      
+      'Neon Pulse Technologies': {
+        image: 'https://source.unsplash.com/random/800x600/?cyberpunk,tech',
+        text: 'Holographic advertising and urban atmosphere control systems developer.'
+      },
+      
+      
+      'SynthCore Dynamics': {
+        image: 'https://source.unsplash.com/random/800x600/?cyberpunk,tech',
+        text: 'Artificial consciousness research and digital immortality solutions provider.'
+      },
+      
+      
+      'Void Protocol Inc': {
+        image: 'https://source.unsplash.com/random/800x600/?cyberpunk,tech',
+        text: 'Deep space communication and quantum entanglement transportation systems.'
+      },
+      
+      
+      'DataStorm Solutions': {
+        image: 'https://source.unsplash.com/random/800x600/?cyberpunk,tech',
+        text: 'Information warfare and corporate espionage prevention specialists.'
+      }, 
+      
+      
+      'Neural Grid Systems': {
+        image: 'https://source.unsplash.com/random/800x600/?cyberpunk,tech',
+        text: 'Brain-machine interface pioneers and neural network infrastructure providers.'
+      },
+      
+      
 
     // ...add more descriptions
 };
@@ -194,14 +263,17 @@ document.querySelectorAll('.corp-name').forEach(company => {
         const panel = document.getElementById('description-panel');
         const companyName = e.target.dataset.company;
         if (descriptions[companyName]) {
-            panel.textContent = descriptions[companyName];
+            panel.innerHTML = `
+                <img src="${descriptions[companyName].image}" alt="${companyName}">
+                <div class="description-text">${descriptions[companyName].text}</div>
+            `;
             panel.classList.add('active');
         }
       });
-    company.addEventListener('mouseleave', () => {
-        document.getElementById('description-panel')
-            .classList.remove('active');
-      });
+//     company.addEventListener('mouseleave', () => {
+//         document.getElementById('description-panel')
+//             .classList.remove('active');
+//       });
     company.addEventListener('click', (e) => {
         // Remove previous selection
         document.querySelectorAll('.corp-name').forEach(c => c.classList.remove('selected'));
