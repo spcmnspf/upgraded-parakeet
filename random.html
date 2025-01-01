@@ -166,7 +166,7 @@
               <div id="description-panel" class="description-panel"></div>
         </div>
         <div id="selected-company" class="selected-company"></div>
-      <label for="email">Login:</label><br>
+      <!-- <label for="email">Login:</label><br> -->
       <input type="email" id="email" name="email"><br><br>
       <button onclick="generateCode()">Generate Code</button>
       <p id="code"></p>
@@ -211,7 +211,7 @@ document.querySelectorAll('.corp-name').forEach(company => {
         
         // Update and show label
         const label = document.getElementById('selected-company');
-        label.textContent = `Selected: ${e.target.dataset.company}`;
+        label.textContent = `Login: ${e.target.dataset.company}`;
         label.classList.add('active');
       });
 });
