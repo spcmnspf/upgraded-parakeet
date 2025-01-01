@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Unique Code Generator</title>
+    <title>Company Login</title>
     <style>
         body {
             background-color: #1a1a2e;
@@ -90,7 +90,7 @@
 
 .company-list {
     display: grid;
-    gap: 1rem;
+    /* gap: 1rem; */
 }
 
 .description-panel {
@@ -127,7 +127,26 @@
     background: rgba(0,255,242,0.1);
     transform: translateX(10px);
 }
-    </style>
+.selected-company {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background: rgba(0,0,0,0.8);
+    border: 1px solid #00fff2;
+    color: #00fff2;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.selected-company.active {
+    opacity: 1;
+}
+
+.corp-name.selected {
+    background: rgba(0,255,242,0.2);
+    transform: translateX(10px);
+}
+</style>
 </head>
 <body>
     <div class="container">
@@ -146,7 +165,8 @@
               </div>
               <div id="description-panel" class="description-panel"></div>
         </div>
-      <label for="email">Enter Email:</label><br>
+        <div id="selected-company" class="selected-company"></div>
+      <label for="email">Login:</label><br>
       <input type="email" id="email" name="email"><br><br>
       <button onclick="generateCode()">Generate Code</button>
       <p id="code"></p>
@@ -168,6 +188,7 @@ const descriptions = {
     // ...add more descriptions
 };
 
+
 document.querySelectorAll('.corp-name').forEach(company => {
     company.addEventListener('mouseenter', (e) => {
         const panel = document.getElementById('description-panel');
@@ -176,13 +197,23 @@ document.querySelectorAll('.corp-name').forEach(company => {
             panel.textContent = descriptions[companyName];
             panel.classList.add('active');
         }
-    });
-
-    
+      });
     company.addEventListener('mouseleave', () => {
         document.getElementById('description-panel')
             .classList.remove('active');
-    });
+      });
+    company.addEventListener('click', (e) => {
+        // Remove previous selection
+        document.querySelectorAll('.corp-name').forEach(c => c.classList.remove('selected'));
+        
+        // Add selection to clicked company
+        e.target.classList.add('selected');
+        
+        // Update and show label
+        const label = document.getElementById('selected-company');
+        label.textContent = `Selected: ${e.target.dataset.company}`;
+        label.classList.add('active');
+      });
 });
                   function generateCode() {
                   const email = document.getElementById("email").value;
