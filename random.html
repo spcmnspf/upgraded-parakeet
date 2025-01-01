@@ -60,15 +60,34 @@
             color: #1a1a2e;
             margin-top: 1rem;
         }
+        /* Add to existing styles */
+    .company-name {
+        font-family: 'Arial', sans-serif;
+        color: #00fff2;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        text-shadow: 
+            0 0 5px #00fff2,
+            0 0 10px #00fff2,
+            0 0 20px #00fff2;
+        animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+        from { text-shadow: 0 0 5px #00fff2, 0 0 10px #00fff2; }
+        to { text-shadow: 0 0 10px #00fff2, 0 0 20px #00fff2, 0 0 30px #00fff2; }
+    }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Unique Code Generator</h1>
-        <label for="email">Enter Email:</label><br>
-        <input type="email" id="email" name="email"><br><br>
-        <button onclick="generateCode()">Generate Code</button>
-        <p id="code"></p>
+      <div class="company-name">NeoMatrix Quantum</div>
+      <label for="email">Enter Email:</label><br>
+      <input type="email" id="email" name="email"><br><br>
+      <button onclick="generateCode()">Generate Code</button>
+      <p id="code"></p>
     </div>
     <script>
                   function generateCode() {
