@@ -25,7 +25,7 @@
             box-shadow: 0 0 20px rgba(0, 150, 255, 0.3);
             text-align: center;
             width: 80%;
-            max-width: 500px;
+            max-width: 640px;
         }
 
         h1 {
@@ -80,60 +80,75 @@
         to { text-shadow: 0 0 10px #00fff2, 0 0 20px #00fff2, 0 0 30px #00fff2; }
     }
         */
-    .company-list {
+.cyberpunk-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem;
+    align-items: start;
+}
+
+.company-list {
     display: grid;
     gap: 1rem;
-    margin: 2rem;
 }
 
-.corp-name {
-    position: relative;
-    font-family: 'Arial', sans-serif;
-    color: #00fff2;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 1.2rem;
-    padding: 0.5rem;
-    border: 1px solid #00fff2;
-    background: rgba(0,0,0,0.7);
-    cursor: pointer;
-    text-shadow: 0 0 5px #00fff2;
-    transition: all 0.3s ease;
-}
-
-.corp-description {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    padding: 1rem;
+.description-panel {
+    position: sticky;
+    top: 2rem;
     background: rgba(0,0,0,0.9);
     border: 1px solid #00fff2;
+    padding: 1.5rem;
+    min-height: 200px;
     color: #00fff2;
-    font-size: 0.9rem;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-    z-index: 100;
     box-shadow: 0 0 15px rgba(0,255,242,0.3);
-    text-align: left;
+}
+
+.description-panel.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.corp-name {
+    cursor: pointer;
+    padding: 0.8rem;
+    border: 1px solid #00fff2;
+    background: rgba(0,0,0,0.7);
+    color: #00fff2;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
 }
 
 .corp-name:hover {
     background: rgba(0,255,242,0.1);
-    text-shadow: 0 0 10px #00fff2, 0 0 20px #00fff2;
-    transform: scale(1.02);
-}
-
-.corp-name:hover .corp-description {
-    opacity: 1;
-    visibility: visible;
+    transform: translateX(10px);
 }
     </style>
 </head>
 <body>
     <div class="container">
-      <div class="company-list">
+      <div class="cyberpunk-grid">
+            <div class="company-list">
+                  NeoTech Syndicate
+                  Quantum Nexus Corp
+                  CyberDyne Systems
+                  Chrome Matrix Ltd
+                  Binary Dawn Industries
+                  Neon Pulse Technologies
+                  SynthCore Dynamics
+                  Void Protocol Inc
+                  DataStorm Solutions
+                  Neural Grid Systems
+            </div>
+            <div id="description-panel" class="description-panel">
+                <!-- Description content will be updated via JS -->
+            </div>
+        </div>
+      <!-- <div class="company-list">
             <div class="corp-name">
                 NeoTech Syndicate
                 <div class="corp-description">Pioneers in neural implant technology, specializing in memory enhancement and consciousness backup solutions.</div>
@@ -174,13 +189,41 @@
                 Neural Grid Systems
                 <div class="corp-description">Brain-machine interface pioneers and neural network infrastructure providers.</div>
             </div>
-        </div>
+        </div> -->
       <label for="email">Enter Email:</label><br>
       <input type="email" id="email" name="email"><br><br>
       <button onclick="generateCode()">Generate Code</button>
       <p id="code"></p>
     </div>
     <script>
+
+const descriptions = {
+    'NeoTech Syndicate': 'Pioneers in neural implant technology, specializing in memory enhancement and consciousness backup solutions.',
+    'Quantum Nexus Corp': 'Leaders in quantum computing and AI fusion, developing next-gen processing architectures.',
+      'CyberDyne Systems': 'Military-grade cybernetic enhancements and autonomous defense systems manufacturer.',
+      'Chrome Matrix Ltd': 'Virtual reality interfaces and neural network security solutions for the corporate elite.',
+      'Binary Dawn Industries': 'Synthetic organ manufacturing and biotech augmentation research facility.',
+      'Neon Pulse Technologies': 'Holographic advertising and urban atmosphere control systems developer.',
+      'SynthCore Dynamics': 'Artificial consciousness research and digital immortality solutions provider.',
+      'Void Protocol Inc': 'Deep space communication and quantum entanglement transportation systems.',
+      'DataStorm Solutions': 'Information warfare and corporate espionage prevention specialists.',
+      'Neural Grid Systems': 'Brain-machine interface pioneers and neural network infrastructure providers.'
+      
+    // ...add more descriptions
+};
+
+document.querySelectorAll('.corp-name').forEach(company => {
+    company.addEventListener('mouseenter', (e) => {
+        const panel = document.getElementById('description-panel');
+        panel.textContent = descriptions[e.target.dataset.id];
+        panel.classList.add('active');
+    });
+    
+    company.addEventListener('mouseleave', () => {
+        document.getElementById('description-panel')
+            .classList.remove('active');
+    });
+});
                   function generateCode() {
                   const email = document.getElementById("email").value;
                   const timestamp = Date.now();
