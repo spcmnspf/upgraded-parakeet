@@ -79,11 +79,47 @@
         from { text-shadow: 0 0 5px #00fff2, 0 0 10px #00fff2; }
         to { text-shadow: 0 0 10px #00fff2, 0 0 20px #00fff2, 0 0 30px #00fff2; }
     }
+    .company-list {
+    display: grid;
+    gap: 1rem;
+    margin: 2rem;
+}
+
+.corp-name {
+    font-family: 'Arial', sans-serif;
+    color: #00fff2;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    border: 1px solid #00fff2;
+    background: rgba(0,0,0,0.7);
+    cursor: pointer;
+    text-shadow: 0 0 5px #00fff2;
+    transition: all 0.3s ease;
+}
+
+.corp-name:hover {
+    background: rgba(0,255,242,0.1);
+    text-shadow: 0 0 10px #00fff2, 0 0 20px #00fff2;
+    transform: scale(1.02);
+}
     </style>
 </head>
 <body>
     <div class="container">
-      <div class="company-name">NeoMatrix Quantum</div>
+      <div class="company-list">
+            <div class="corp-name">NeoTech Syndicate</div>
+            <div class="corp-name">Quantum Nexus Corp</div>
+            <div class="corp-name">CyberDyne Systems</div>
+            <div class="corp-name">Chrome Matrix Ltd</div>
+            <div class="corp-name">Binary Dawn Industries</div>
+            <div class="corp-name">Neon Pulse Technologies</div>
+            <div class="corp-name">SynthCore Dynamics</div>
+            <div class="corp-name">Void Protocol Inc</div>
+            <div class="corp-name">DataStorm Solutions</div>
+            <div class="corp-name">Neural Grid Systems</div>
+        </div>
       <label for="email">Enter Email:</label><br>
       <input type="email" id="email" name="email"><br><br>
       <button onclick="generateCode()">Generate Code</button>
