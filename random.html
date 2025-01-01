@@ -17,29 +17,25 @@
               <script>
                   function generateCode() {
                         const email = document.getElementById("email").value;
-                              let code = 0;
-
-                                    // Simple hashing function (replace with a more robust one)
-                                          for (let i = 0; i < email.length; i++) {
-                                                  code += email.charCodeAt(i);
-                                                        }
-
-                                                              // Limit code to 16 bits
-                                                                    code = code & 0xFFFF; // Bitwise AND with 0xFFFF to get 16 bits
-
-                                                                          // Convert code to hexadecimal string
-                                                                              // Add more characters to make the code longer and unique
-                                                                              code = (code * 31 + email.length) & 0xFFFFFFFF; // Multiply by a prime number and add email length, limit to 32 bits
-                                                                                const hexCode = code.toString(16).toUpperCase();
-
-                                                                                      // Pad with leading zeros if necessary
-                                                                                            const paddedCode = hexCode.padStart(4, '0');
-
-                                                                                                  document.getElementById("code").textContent = "Unique Code: " + paddedCode;
-                                                                                                      }
+                        const timestamp = Date.now();
+                        const random = Math.floor(Math.random() * 10000);
+                        
+                        // Combine email, timestamp and random number
+                        let code = 0;
+                        for (let i = 0; i < email.length; i++) {
+                            code += email.charCodeAt(i);
+                        }
+                        
+                        // Create unique code using all components
+                        code = ((code * 31 + timestamp) ^ random) & 0xFFFFFFFF;
+                        const hexCode = code.toString(16).toUpperCase();
+                        
+                        // Ensure code is at least 8 characters
+                        const paddedCode = hexCode.padStart(8, '0');
+                        
+                        document.getElementById("code").textContent = "Unique Code: " + paddedCode;
+                    }
                                                                                                         </script>
 
                                                                                                         </body>
                                                                                                         </html>
-
-                                                                                                        
