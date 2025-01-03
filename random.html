@@ -322,6 +322,8 @@ document.querySelectorAll('.corp-name').forEach(company => {
         reportAttempt('Suspicious input detected');
         return false;
     }
+    // Check if code already exists for this email
+    const existingCodes = JSON.parse(localStorage.getItem('generatedCodes')) || {};
     
     // Add validation token
     const validationToken = btoa(email + Date.now());
@@ -332,8 +334,7 @@ document.querySelectorAll('.corp-name').forEach(company => {
         return;
     }
 
-    // Check if code already exists for this email
-    const existingCodes = JSON.parse(localStorage.getItem('generatedCodes')) || {};
+    
 
 
     // Original code generation
