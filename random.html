@@ -262,21 +262,6 @@ const descriptions = {
 
 
 document.querySelectorAll('.corp-name').forEach(company => {
-    company.addEventListener('mouseenter', (e) => {
-        const panel = document.getElementById('description-panel');
-        const companyName = e.target.dataset.company;
-        if (descriptions[companyName]) {
-            panel.innerHTML = `
-                <img src="${descriptions[companyName].image}" alt="${companyName}">
-                <div class="description-text">${descriptions[companyName].text}</div>
-            `;
-            panel.classList.add('active');
-        }
-      });
-//     company.addEventListener('mouseleave', () => {
-//         document.getElementById('description-panel')
-//             .classList.remove('active');
-//       });
     company.addEventListener('click', (e) => {
         // Remove previous selection
         document.querySelectorAll('.corp-name').forEach(c => c.classList.remove('selected'));
@@ -291,10 +276,27 @@ document.querySelectorAll('.corp-name').forEach(company => {
         const label = document.getElementById('selected-company');
         label.textContent = `Login: ${e.target.dataset.company}`;
         label.classList.add('active');
-      });
+
+        // Update description panel
+        const panel = document.getElementById('description-panel');
+        const companyName = e.target.dataset.company;
+        if (descriptions[companyName]) {
+            panel.innerHTML = `
+                <img src="${descriptions[companyName].image}" alt="${companyName}">
+                <div class="description-text">${descriptions[companyName].text}</div>
+            `;
+            panel.classList.add('active');
+        }
+    });
 });
                   function generateCode() {
                     
+    if (!document.getElementById("email").value.trim()) {
+        document.getElementById("code").textContent = "Error: Please enter an email address";
+        document.getElementById("code").style.color = "#ff4444";
+        return;
+    }
+
     if (!selectedCompany) {
         document.getElementById("code").textContent = "Error: Please select a company first";
         document.getElementById("code").style.color = "#ff4444";
