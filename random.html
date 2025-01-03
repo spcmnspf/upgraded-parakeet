@@ -288,27 +288,39 @@ document.querySelectorAll('.corp-name').forEach(company => {
       });
 });
                   function generateCode() {
-                  const email = document.getElementById("email").value;
-                  const timestamp = Date.now();
-                  const random = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
-                  const uuid = crypto.randomUUID();
-                  
-                  // Combine multiple entropy sources
-                  let code = 0n;
-                  for (let i = 0; i < email.length; i++) {
-                        code += BigInt(email.charCodeAt(i));
-                  }
-                  
-                  // Use full 64-bit space with BigInt
-                  code = (code * 31n + BigInt(timestamp)) ^ BigInt(random);
-                  code = code + BigInt('0x' + uuid.replace(/-/g, ''));
-                  
-                  // Convert to hex and ensure minimum length
-                  const hexCode = code.toString(16).toUpperCase();
-                  const paddedCode = hexCode.padStart(16, '0');
-                  
-                  document.getElementById("code").textContent = "Unique Code: " + paddedCode;
-                  }
+    const email = document.getElementById("email").value;
+    
+    // Check if code already exists for this email
+    const existingCodes = JSON.parse(localStorage.getItem('generatedCodes')) || {};
+    
+    if (existingCodes[email]) {
+        document.getElementById("code").textContent = "Existing Key: " + existingCodes[email];
+        document.getElementById("code").style.color = "#ff4444";
+        return;
+    }
+    
+    const timestamp = Date.now();
+    const random = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+    const uuid = crypto.randomUUID();
+    
+    let code = 0n;
+    for (let i = 0; i < email.length; i++) {
+        code += BigInt(email.charCodeAt(i));
+    }
+    
+    code = (code * 31n + BigInt(timestamp)) ^ BigInt(random);
+    code = code + BigInt('0x' + uuid.replace(/-/g, ''));
+    
+    const hexCode = code.toString(16).toUpperCase();
+    const paddedCode = hexCode.padStart(16, '0');
+    
+    // Store the new code
+    existingCodes[email] = paddedCode;
+    localStorage.setItem('generatedCodes', JSON.stringify(existingCodes));
+    
+    document.getElementById("code").textContent = "New Decryption Key: " + paddedCode;
+    document.getElementById("code").style.color = "#00fff2";
+}
       </script>
 
       </body>
